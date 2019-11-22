@@ -78,11 +78,10 @@ func (g *GinInflux) HandlerFunc() gin.HandlerFunc {
 				"request_uri": c.Request.RequestURI,
 				"elapsed":     elapsed,
 			}
-			tags := map[string]interface{}{
+			tags := map[string]string{
 				"method":      c.Request.Method,
 				"path":        c.FullPath(),
 				"status":      status,
-				"elapsed":     elapsed,
 				"request_uri": c.Request.RequestURI,
 			}
 			pt, err := client.NewPoint(g.pointName, tags, fields, time.Now())
