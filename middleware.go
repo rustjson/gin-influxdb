@@ -15,12 +15,11 @@ type GinInflux struct {
 	bp             client.BatchPoints
 	database       string
 	conn           client.Client
-	tags           map[string]string
 	pointName      string
 	writeThreshold int
 }
 
-func New(addr, database, pointName string, writeThreshold int, tags map[string]string) GinInflux {
+func New(addr, database, pointName string, writeThreshold int) GinInflux {
 
 	conn, err := client.NewHTTPClient(client.HTTPConfig{
 		Addr: addr,
@@ -42,7 +41,6 @@ func New(addr, database, pointName string, writeThreshold int, tags map[string]s
 		conn:           conn,
 		database:       database,
 		pointName:      pointName,
-		tags:           tags,
 		writeThreshold: writeThreshold,
 	}
 }
@@ -77,13 +75,17 @@ func (g *GinInflux) HandlerFunc() gin.HandlerFunc {
 
 		go func() {
 			fields := map[string]interface{}{
+				"request_uri": c.Request.RequestURI,
+				"elapsed":     elapsed,
+			}
+			tags := map[string]interface{}{
 				"method":      c.Request.Method,
 				"path":        c.FullPath(),
 				"status":      status,
 				"elapsed":     elapsed,
 				"request_uri": c.Request.RequestURI,
 			}
-			pt, err := client.NewPoint(g.pointName, g.tags, fields, time.Now())
+			pt, err := client.NewPoint(g.pointName, tags, fields, time.Now())
 			if err != nil {
 				log.Fatal(err)
 			}

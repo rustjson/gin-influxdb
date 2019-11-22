@@ -11,7 +11,7 @@ func main() {
 	router := gin.New()
 
 	// p := ginprometheus.NewPrometheus("gin")
-	i := gininflux.New("http://localhost:8086", "test_jason_go", "gin", 2, map[string]string{})
+	i := gininflux.New("http://influxdb.yang:8086", "test_jason_go", "gin", 2, map[string]string{})
 	// p.Use(r)
 	router.Use(i.HandlerFunc())
 	router.GET("/", func(c *gin.Context) {
