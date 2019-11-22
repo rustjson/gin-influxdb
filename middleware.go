@@ -54,7 +54,7 @@ func (g *GinInflux) write(bp *client.Point) {
 		} else {
 			bp, err := client.NewBatchPoints(client.BatchPointsConfig{
 				Database:  g.database,
-				Precision: "s",
+				Precision: "ms",
 			})
 
 			if err != nil {
