@@ -69,9 +69,9 @@ func (g *GinInflux) HandlerFunc() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		start := time.Now()
 		status := strconv.Itoa(c.Writer.Status())
-		elapsed := float64(time.Since(start)) / float64(time.Second)
 
 		c.Next()
+		elapsed := float64(time.Since(start)) / float64(time.Second)
 
 		go func() {
 			fields := map[string]interface{}{
