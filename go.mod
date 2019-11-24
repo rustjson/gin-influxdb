@@ -3,7 +3,7 @@ module github.com/rustjson/gin-influxdb
 go 1.13
 
 require (
-	github.com/gin-gonic/gin v1.4.1-0.20191101024740-db9174ae0c25
+	github.com/gin-gonic/gin v1.5.0
 	github.com/influxdata/influxdb1-client v0.0.0-20190809212627-fc22c7df067e
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
