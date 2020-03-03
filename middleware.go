@@ -68,9 +68,10 @@ func (g *GinInflux) write(bp *client.Point) {
 func (g *GinInflux) HandlerFunc() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		start := time.Now()
-		status := strconv.Itoa(c.Writer.Status())
 
 		c.Next()
+
+		status := strconv.Itoa(c.Writer.Status())
 		elapsed := float64(time.Since(start)) / float64(time.Second)
 
 		go func() {
